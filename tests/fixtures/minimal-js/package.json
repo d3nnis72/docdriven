@@ -1,0 +1,9 @@
+{
+  "name": "minimal-js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "build": "node src/index.js"
+  },
+  "dependencies": {}
+}

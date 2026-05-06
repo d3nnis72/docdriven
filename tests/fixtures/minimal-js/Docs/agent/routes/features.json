@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "area": "features",
+  "routes": [
+    {
+      "id": "feature-general",
+      "priority": 100,
+      "taskTypes": [
+        "feature behavior",
+        "user-visible behavior"
+      ],
+      "readFirst": [
+        "knowledge/features/README.md"
+      ],
+      "canonicalDocs": [
+        "knowledge/features/README.md"
+      ],
+      "codeAreas": [
+        "src/**"
+      ],
+      "updateDocs": [
+        "knowledge/features/README.md",
+        "human/overview.md"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown"
+    }
+  ]
+}

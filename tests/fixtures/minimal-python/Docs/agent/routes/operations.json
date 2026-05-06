@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "area": "operations",
+  "routes": [
+    {
+      "id": "operations-general",
+      "priority": 100,
+      "taskTypes": [
+        "setup",
+        "config",
+        "operations",
+        "deployment",
+        "validation command"
+      ],
+      "readFirst": [
+        "human/setup.md"
+      ],
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        "inspect manually"
+      ],
+      "updateDocs": [
+        "knowledge/operations/README.md",
+        "human/setup.md",
+        "human/commands.md",
+        "agent/validation.md"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown"
+    }
+  ]
+}

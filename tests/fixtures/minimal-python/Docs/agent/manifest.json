@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "docsRoot": "Docs",
+  "routeIndexes": [
+    "agent/routes/architecture.json",
+    "agent/routes/features.json",
+    "agent/routes/interfaces.json",
+    "agent/routes/operations.json"
+  ],
+  "contextMap": "agent/context-map.md",
+  "gaps": "agent/gaps.md"
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "area": "interfaces",
+  "routes": [
+    {
+      "id": "interface-general",
+      "priority": 100,
+      "taskTypes": [
+        "interface change",
+        "api change",
+        "cli change",
+        "integration change"
+      ],
+      "readFirst": [
+        "knowledge/interfaces/README.md"
+      ],
+      "canonicalDocs": [
+        "knowledge/interfaces/README.md"
+      ],
+      "codeAreas": [
+        "src/**"
+      ],
+      "updateDocs": [
+        "knowledge/interfaces/README.md",
+        "knowledge/features/README.md"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown"
+    }
+  ]
+}
