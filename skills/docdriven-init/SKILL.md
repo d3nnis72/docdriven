@@ -24,7 +24,18 @@ Detect:
 - code shape: source dirs, app dirs, package dirs, tests
 - runtime dynamics: config, env, CI, deployment, database or schema tools
 - validation reality: actual test, build, lint, typecheck, and dev commands
-- documentation fit: knowledge categories and route shards the project needs
+- documentation fit: human questions, durable knowledge areas, route shards, ownership, and validation evidence the project actually needs
+
+## Documentation Fit
+
+The local skill should describe the project-specific docs model, not repeat a
+generic tree. Decide from evidence:
+
+- what humans need to set up, run, configure, deploy, or change the project
+- which concepts need canonical knowledge docs
+- which interfaces, domains, packages, or operations deserve their own routes
+- which areas are absent and should not get docs yet
+- which likely docs are uncertain and should be recorded as gaps
 
 ## Generator
 

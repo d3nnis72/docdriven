@@ -5,7 +5,7 @@ description: Use after docdriven-init to create the initial DocDriven documentat
 
 # DocDriven Build
 
-Use this skill to create the initial `Docs/` structure.
+Use this skill to create and adapt the initial `Docs/` structure.
 
 ## Required Workflow
 
@@ -23,9 +23,21 @@ Use this skill to create the initial `Docs/` structure.
 Generated placeholders are scaffolding only. Build is not complete until
 placeholder text in human or knowledge docs is replaced or recorded as a gap.
 
+## Dynamic Build
+
+The generated tree is only a base scaffold. Adapt it to the repository before
+calling the build complete.
+
+- Keep the smallest useful docs surface.
+- Remove or leave uncreated docs for concepts the project does not have.
+- Create project-specific docs when humans or agents have distinct tasks.
+- Split knowledge docs or route shards when it reduces context or clarifies ownership.
+- Record uncertain docs, missing owners, and unresolved setup facts in `Docs/agent/gaps.md`.
+
 ## Generator
 
-Prefer `scripts/create-docs-tree.mjs` for the base tree, then edit content manually.
+Prefer `scripts/create-docs-tree.mjs` for the base scaffold, then edit content
+and structure manually to match the project.
 
 ## References
 

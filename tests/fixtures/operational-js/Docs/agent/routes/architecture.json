@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "area": "architecture",
+  "routes": [
+    {
+      "id": "architecture-general",
+      "priority": 100,
+      "taskTypes": [
+        "architecture change",
+        "dependency direction",
+        "runtime flow"
+      ],
+      "readFirst": [
+        "knowledge/architecture/README.md"
+      ],
+      "canonicalDocs": [
+        "knowledge/architecture/README.md"
+      ],
+      "codeAreas": [
+        "src/**"
+      ],
+      "updateDocs": [
+        "knowledge/architecture/README.md",
+        "human/architecture.md"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown"
+    }
+  ]
+}

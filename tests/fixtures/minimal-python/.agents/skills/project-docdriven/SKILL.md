@@ -25,6 +25,12 @@ Source dirs:
 Config files:
 - none detected
 
+Adaptive human docs:
+- none detected
+
+Operational signals:
+- none detected
+
 ## Required Workflow
 
 1. Read Docs/agent/manifest.json if present.
@@ -49,11 +55,19 @@ Config files:
 - lint: ruff check . if configured; otherwise inspect manually
 - typecheck: not detected
 - dev: not detected
+- deploy: not detected
+- debug: not detected
+- migrate: not detected
+- seed: not detected
+- docs: not detected
+- audit: not detected
+- doctor: not detected
 
 ## Update Protocol
 
 - Behavior changes update the affected knowledge docs.
 - User-facing changes update human docs when orientation, setup, or commands change.
+- Environment, configuration, services, deployment, troubleshooting, and maintenance changes update affected human docs and Docs/knowledge/operations/README.md.
 - Routing gaps update Docs/agent/context-map.md or Docs/agent/gaps.md.
 - Route, ownership, code area, and validation changes update Docs/agent/manifest.json and route shards.
 - Validation command changes update Docs/agent/validation.md and Docs/human/commands.md.

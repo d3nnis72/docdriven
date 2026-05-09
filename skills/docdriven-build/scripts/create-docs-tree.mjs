@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
+import { scanProject } from "../../_shared/operational-scan.mjs";
 
 const args = process.argv.slice(2);
 const root = valueAfter("--root") || process.cwd();
 const force = args.includes("--force");
 const docsRoot = valueAfter("--docs-root") || "Docs";
 const docs = path.join(root, docsRoot);
-const project = detectProject(root);
+const project = scanProject(root);
 
 const files = new Map([
   ["README.md", rootReadme(project)],
@@ -34,6 +35,10 @@ const files = new Map([
   ["knowledge/operations/README.md", operationsReadme()],
   ["tmp/README.md", tmpReadme()]
 ]);
+
+for (const doc of project.adaptiveHumanDocs) {
+  files.set(`human/${doc}.md`, adaptiveHumanDoc(project, doc));
+}
 
 for (const [relative, content] of files) {
   const file = path.join(docs, relative);
@@ -179,11 +184,31 @@ TODO: Replace this with a short human summary of what the project does and who i
 }
 
 function humanSetup(project) {
+  const adaptiveLinks = project.adaptiveHumanDocs.length
+    ? project.adaptiveHumanDocs.map((doc) => `- \`${doc}.md\`: ${adaptiveDocDescription(doc)}`).join("\n")
+    : "- none detected";
+
   return `# Setup
 
 Stack: ${project.stack}
+Package manager: ${project.packageManager}
 
-TODO: Document required runtime, environment variables, services, accounts, and setup traps.
+## Checklist
+
+1. Install project dependencies with the detected package manager.
+2. Configure required environment and project settings.
+3. Start required services before running the app.
+4. Run validation before making changes.
+
+## Required Configuration
+
+${setupConfigurationSummary(project)}
+
+## More Human Docs
+
+${adaptiveLinks}
+
+Detailed operations truth belongs in \`../knowledge/operations/README.md\`.
 `;
 }
 
@@ -211,6 +236,150 @@ This is the short human architecture summary.
 
 Detailed architecture truth belongs in \`../knowledge/architecture/\`.
 `;
+}
+
+function adaptiveHumanDoc(project, doc) {
+  const renderers = {
+    environment: humanEnvironment,
+    configuration: humanConfiguration,
+    services: humanServices,
+    deployment: humanDeployment,
+    troubleshooting: humanTroubleshooting,
+    maintenance: humanMaintenance
+  };
+  return renderers[doc](project);
+}
+
+function humanEnvironment(project) {
+  const variables = project.operationalSignals.environment.variables;
+  const rows = variables.length
+    ? variables.map((variable) => `| \`${variable.name}\` | ${variable.required} | \`${variable.localExample || "confirm locally"}\` | ${variable.source} | ${variable.failureImpact} |`).join("\n")
+    : "| `unknown` | unknown | `confirm locally` | inspect manually | Confirm required environment variables. |";
+
+  return `# Environment
+
+Environment variables and secret setup for local development.
+
+| Variable | Required | Local example | Source | Missing impact |
+|---|---|---|---|---|
+${rows}
+
+Evidence:
+${evidenceList(project.operationalSignals.environment)}
+
+Deeper configuration truth belongs in \`../knowledge/operations/README.md\`.
+`;
+}
+
+function humanConfiguration(project) {
+  const rows = project.operationalSignals.configuration.files.length
+    ? project.operationalSignals.configuration.files.map((file) => `| \`${file.path}\` | ${file.purpose} |`).join("\n")
+    : "| `inspect manually` | Confirm project configuration files. |";
+
+  return `# Configuration
+
+Project configuration files and runtime settings.
+
+| File | Purpose |
+|---|---|
+${rows}
+
+Configuration precedence and implementation details belong in \`../knowledge/operations/README.md\`.
+`;
+}
+
+function humanServices(project) {
+  const rows = project.operationalSignals.services.services.length
+    ? project.operationalSignals.services.services.map((service) => `| ${service.name} | ${service.source} | ${service.localHint} | ${service.healthHint} |`).join("\n")
+    : "| inspect manually | inspect manually | Confirm required services. | Confirm health checks. |";
+
+  return `# Services
+
+Required external services, local emulators, and service checks.
+
+| Service | Source | Local hint | Health hint |
+|---|---|---|---|
+${rows}
+
+Service contracts and deeper operational details belong in \`../knowledge/operations/README.md\`.
+`;
+}
+
+function humanDeployment(project) {
+  const rows = project.operationalSignals.deployment.targets.length
+    ? project.operationalSignals.deployment.targets.map((target) => `| ${target.name} | ${target.source} | \`${target.command}\` |`).join("\n")
+    : "| inspect manually | inspect manually | `not detected` |";
+
+  return `# Deployment
+
+Deploy targets, release commands, and rollback pointers.
+
+| Target | Source | Command |
+|---|---|---|
+${rows}
+
+Run validation before deployment. Rollback and environment-specific behavior belong in \`../knowledge/operations/README.md\`.
+`;
+}
+
+function humanTroubleshooting(project) {
+  const rows = project.operationalSignals.troubleshooting.checks.length
+    ? project.operationalSignals.troubleshooting.checks.map((check) => `| ${check.symptom} | \`${check.check}\` | ${check.source} |`).join("\n")
+    : "| Setup or runtime issue | `inspect manually` | generated gap |";
+
+  return `# Troubleshooting
+
+Common setup and runtime checks.
+
+| Symptom | First check | Source |
+|---|---|---|
+${rows}
+
+Keep detailed runbooks and root-cause explanations in \`../knowledge/operations/README.md\`.
+`;
+}
+
+function humanMaintenance(project) {
+  const rows = project.operationalSignals.maintenance.tasks.length
+    ? project.operationalSignals.maintenance.tasks.map((task) => `| ${task.name} | \`${task.command}\` | ${task.source} |`).join("\n")
+    : "| inspect manually | `not detected` | inspect manually |";
+
+  return `# Maintenance
+
+Recurring operational tasks.
+
+| Task | Command | Source |
+|---|---|---|
+${rows}
+
+Maintenance strategy, safety notes, and ownership belong in \`../knowledge/operations/README.md\`.
+`;
+}
+
+function setupConfigurationSummary(project) {
+  if (project.adaptiveHumanDocs.includes("environment")) {
+    return "- Environment variables are documented in `environment.md`.";
+  }
+  if (project.configFiles.length) {
+    return project.configFiles.map((file) => `- Review \`${file}\`.`).join("\n");
+  }
+  return "- No required configuration files were detected. Confirm setup manually.";
+}
+
+function adaptiveDocDescription(doc) {
+  const descriptions = {
+    environment: "environment variables and secret sources",
+    configuration: "config files, flags, and runtime settings",
+    services: "external services and local dependencies",
+    deployment: "deploy targets and release commands",
+    troubleshooting: "common setup and runtime checks",
+    maintenance: "recurring operational tasks"
+  };
+  return descriptions[doc];
+}
+
+function evidenceList(signal) {
+  return signal.evidence.length ? signal.evidence.map((item) => `- \`${item}\``).join("\n") : "- inspect manually";
 }
 
 function manifest() {
@@ -273,6 +442,10 @@ ${scripts}
 }
 
 function contextMap(project) {
+  const operationRows = operationsRoutes(project)
+    .map((route) => `| ${route.id} | ${route.taskTypes.join(", ")} | ${route.readFirst.map(tick).join(", ")} | ${route.canonicalDocs.map(tick).join(", ")} | ${route.codeAreas.join(", ")} | ${route.updateDocs.join(", ")} | ${route.validation.join(", ")} | ${route.owner} |`)
+    .join("\n");
+
   return `# Context Map
 
 Use this table to choose the smallest useful context route.
@@ -282,7 +455,7 @@ Use this table to choose the smallest useful context route.
 | architecture-general | Architecture change | \`knowledge/architecture/README.md\` | \`knowledge/architecture/README.md\` | ${codeArea(project)} | architecture docs, human architecture if user-facing | ${validationKey(project)} | unknown |
 | feature-general | Feature behavior | \`knowledge/features/README.md\` | \`knowledge/features/README.md\` | ${codeArea(project)} | affected feature docs, human overview if needed | ${validationKey(project)} | unknown |
 | interface-general | Interface change | \`knowledge/interfaces/README.md\` | \`knowledge/interfaces/README.md\` | ${codeArea(project)} | interface docs and affected feature docs | ${validationKey(project)} | unknown |
-| operations-general | Setup/config/operations | \`human/setup.md\` | \`knowledge/operations/README.md\` | ${project.configFiles.join(", ") || "inspect manually"} | setup, commands, validation, operations docs | ${validationKey(project)} | unknown |
+${operationRows}
 `;
 }
 
@@ -322,23 +495,84 @@ function routeShard(project, area) {
       owner: "unknown"
     },
     operations: {
-      id: "operations-general",
-      priority: 100,
-      taskTypes: ["setup", "config", "operations", "deployment", "validation command"],
-      readFirst: ["human/setup.md"],
-      canonicalDocs: ["knowledge/operations/README.md"],
-      codeAreas: project.configFiles.length ? project.configFiles : ["inspect manually"],
-      updateDocs: ["knowledge/operations/README.md", "human/setup.md", "human/commands.md", "agent/validation.md"],
-      validation: [validationKey(project)],
-      owner: "unknown"
-    }
+      routes: operationsRoutes(project)
+    }.routes
   };
+
+  const routes = Array.isArray(routeByArea[area]) ? routeByArea[area] : [routeByArea[area]];
 
   return `${JSON.stringify({
     schemaVersion: 1,
     area,
-    routes: [routeByArea[area]]
+    routes
   }, null, 2)}\n`;
+}
+
+function operationsRoutes(project) {
+  const validation = [validationKey(project)];
+  const codeAreas = operationCodeAreas(project);
+  const base = {
+    priority: 100,
+    canonicalDocs: ["knowledge/operations/README.md"],
+    codeAreas,
+    validation,
+    owner: "unknown"
+  };
+
+  if (project.adaptiveHumanDocs.length === 0) {
+    return [{
+      ...base,
+      id: "operations-general",
+      taskTypes: ["setup", "config", "operations", "deployment", "validation command"],
+      readFirst: ["human/setup.md"],
+      updateDocs: ["knowledge/operations/README.md", "human/setup.md", "human/commands.md", "agent/validation.md"]
+    }];
+  }
+
+  const routes = [{
+    ...base,
+    id: "operations-setup",
+    taskTypes: ["setup", "local setup", "onboarding"],
+    readFirst: ["human/setup.md"],
+    updateDocs: ["knowledge/operations/README.md", "human/setup.md", "human/commands.md"]
+  }];
+
+  const byDoc = {
+    environment: ["environment variable change", "env change", "secret setup"],
+    configuration: ["config file change", "runtime setting", "feature flag"],
+    services: ["service dependency change", "external service", "local service"],
+    deployment: ["deployment change", "release change", "rollback"],
+    troubleshooting: ["troubleshooting", "setup failure", "runtime failure"],
+    maintenance: ["maintenance task change", "migration", "seed", "scheduled job"]
+  };
+
+  for (const doc of project.adaptiveHumanDocs) {
+    routes.push({
+      ...base,
+      id: `operations-${doc}`,
+      taskTypes: byDoc[doc],
+      readFirst: [`human/${doc}.md`],
+      updateDocs: ["knowledge/operations/README.md", "human/setup.md", `human/${doc}.md`]
+    });
+  }
+
+  routes.push({
+    ...base,
+    id: "operations-validation",
+    taskTypes: ["validation command change", "test command change", "build command change"],
+    readFirst: ["agent/validation.md", "human/commands.md"],
+    updateDocs: ["agent/validation.md", "human/commands.md", "knowledge/operations/README.md"]
+  });
+
+  return routes;
+}
+
+function operationCodeAreas(project) {
+  return project.configFiles.length ? project.configFiles : ["inspect manually"];
+}
+
+function tick(value) {
+  return `\`${value}\``;
 }
 
 function updateProtocol() {

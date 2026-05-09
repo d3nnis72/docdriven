@@ -111,7 +111,13 @@ Canonical files:
 - `commands.md`: run, test, build, lint, deploy, and debug commands.
 - `architecture.md`: short system shape and links to detailed knowledge docs.
 
+Adaptive human docs may be generated when project evidence requires them:
+`environment.md`, `configuration.md`, `services.md`, `deployment.md`,
+`troubleshooting.md`, and `maintenance.md`.
+
 Human docs may summarize knowledge docs, but must not duplicate detailed truth.
+They contain day-one operational facts and link to `knowledge/operations/` for
+deeper current truth.
 
 ### `Docs/agent/`
 

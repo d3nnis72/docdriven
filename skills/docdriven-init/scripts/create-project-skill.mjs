@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
+import { listDetectedSignals, scanProject } from "../../_shared/operational-scan.mjs";
 
 const args = process.argv.slice(2);
 const root = valueAfter("--root") || process.cwd();
@@ -9,7 +10,7 @@ const docsRoot = valueAfter("--docs-root") || "Docs";
 const outDir = path.join(root, ".agents", "skills", "project-docdriven");
 const outFile = path.join(outDir, "SKILL.md");
 
-const project = detectProject(root);
+const project = scanProject(root);
 
 if (fs.existsSync(outFile) && !force) {
   console.error(`${outFile} already exists. Use --force to overwrite.`);
@@ -134,6 +135,18 @@ function commandLines(commands) {
     .join("\n");
 }
 
+function adaptiveDocLines(project) {
+  return project.adaptiveHumanDocs.length ? project.adaptiveHumanDocs.map((name) => `- ${name}`).join("\n") : "- none detected";
+}
+
+function operationalSignalLines(project) {
+  const signals = listDetectedSignals(project.operationalSignals);
+  if (signals.length === 0) return "- none detected";
+  return signals
+    .map(({ name, evidence }) => `- ${name}: ${evidence.slice(0, 3).join(", ") || "detected"}`)
+    .join("\n");
+}
+
 function renderSkill(project, docsRoot) {
   const docs = docsRoot.replace(/\/$/, "");
   const categories = project.knowledgeCategories.map((name) => `- ${name}`).join("\n");
@@ -165,6 +178,12 @@ ${listOrNone(project.sourceDirs)}
 Config files:
 ${listOrNone(project.configFiles)}
 
+Adaptive human docs:
+${adaptiveDocLines(project)}
+
+Operational signals:
+${operationalSignalLines(project)}
+
 ## Required Workflow
 
 1. Read ${docs}/agent/manifest.json if present.
@@ -187,6 +206,7 @@ ${commandLines(project.commands)}
 
 - Behavior changes update the affected knowledge docs.
 - User-facing changes update human docs when orientation, setup, or commands change.
+- Environment, configuration, services, deployment, troubleshooting, and maintenance changes update affected human docs and ${docs}/knowledge/operations/README.md.
 - Routing gaps update ${docs}/agent/context-map.md or ${docs}/agent/gaps.md.
 - Route, ownership, code area, and validation changes update ${docs}/agent/manifest.json and route shards.
 - Validation command changes update ${docs}/agent/validation.md and ${docs}/human/commands.md.

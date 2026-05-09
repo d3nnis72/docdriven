@@ -14,6 +14,8 @@ Validation targets:
 - route code areas resolve or are explicitly unknown
 - context map route IDs match route shards
 - placeholder scaffold text is detected
+- adaptive human docs are generated only when operational signals require them
+- adaptive human docs are linked from setup and to operations knowledge
 - audit reports missing files, oversized docs, and invalid route tables
 - skills can be listed or installed by `npx skills`
 

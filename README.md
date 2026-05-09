@@ -133,7 +133,8 @@ Docs/
 |   |-- overview.md
 |   |-- setup.md
 |   |-- commands.md
-|   `-- architecture.md
+|   |-- architecture.md
+|   `-- adaptive files when detected
 |-- agent/
 |   |-- manifest.json
 |   |-- init-scan.md
@@ -181,6 +182,7 @@ Humans need quick orientation:
 
 - What is this project?
 - How do I set it up?
+- Which environment variables, config files, services, and accounts do I need?
 - How do I run, test, build, and deploy it?
 - What is the architecture in simple terms?
 - What should I know before operating or changing it?

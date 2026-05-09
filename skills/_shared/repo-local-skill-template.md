@@ -8,6 +8,9 @@ Required sections:
 - project shape
 - docs root
 - project dynamics scan summary
+- project-specific documentation decisions
+- adaptive human docs summary
+- operational signals summary
 - required read order
 - project-specific routes
 - validation commands
@@ -17,6 +20,12 @@ Required sections:
 - links to `Docs/agent/init-scan.md`
 
 The generated skill is agent behavior. It must not copy full project docs.
+It may summarize detected operational signals so agents know which human docs
+exist for setup, environment, configuration, services, deployment,
+troubleshooting, and maintenance.
+It should also say where the project intentionally diverges from the default
+scaffold and where future agents may need to add, split, consolidate, or omit
+docs based on evidence.
 
 Required workflow:
 

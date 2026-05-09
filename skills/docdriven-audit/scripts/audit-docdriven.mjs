@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
+import { scanProject } from "../../_shared/operational-scan.mjs";
 
 const args = process.argv.slice(2);
 const root = valueAfter("--root") || process.cwd();
 const format = valueAfter("--format") || "text";
 const docsRoot = valueAfter("--docs-root") || "Docs";
 const docs = path.join(root, docsRoot);
+const project = scanProject(root);
 
 const requiredFiles = [
   "README.md",
@@ -57,6 +59,7 @@ if (routeGraph) {
   checkRouteGraph(routeGraph);
   checkContextMapRouteIds(routeGraph);
   checkOrphanKnowledgeDocs(routeGraph);
+  checkAdaptiveHumanDocs(routeGraph);
 }
 checkPlaceholders();
 
@@ -450,6 +453,72 @@ function checkOrphanKnowledgeDocs(routeGraph) {
         message: "Knowledge doc is not referenced by any route."
       });
     }
+  }
+}
+
+function checkAdaptiveHumanDocs(routeGraph) {
+  const adaptiveNames = ["environment", "configuration", "services", "deployment", "troubleshooting", "maintenance"];
+  const adaptivePaths = new Set(adaptiveNames.map((name) => `human/${name}.md`));
+  const expected = new Set(project.adaptiveHumanDocs.map((name) => `human/${name}.md`));
+  const referenced = new Set();
+
+  for (const shard of routeGraph.shards) {
+    for (const route of shard.data.routes || []) {
+      for (const key of ["readFirst", "canonicalDocs", "updateDocs"]) {
+        for (const relative of arrayValue(route[key])) {
+          const normalized = stripTicks(relative);
+          if (adaptivePaths.has(normalized)) {
+            expected.add(normalized);
+            referenced.add(normalized);
+          }
+        }
+      }
+    }
+  }
+
+  const setupFile = docsPath("human/setup.md");
+  const setupContent = fs.existsSync(setupFile) ? fs.readFileSync(setupFile, "utf8") : "";
+
+  for (const relative of expected) {
+    const file = docsPath(relative);
+    if (!fs.existsSync(file)) {
+      findings.push({
+        severity: "error",
+        code: "missing-adaptive-human-doc",
+        file: path.relative(root, file),
+        message: `Adaptive human doc is required by routes or detected signals: ${relative}.`
+      });
+      continue;
+    }
+
+    const content = fs.readFileSync(file, "utf8");
+    if (!setupContent.includes(path.basename(relative))) {
+      findings.push({
+        severity: "warning",
+        code: "adaptive-doc-not-linked-from-setup",
+        file: path.relative(root, file),
+        message: `Adaptive human doc should be linked from human/setup.md: ${relative}.`
+      });
+    }
+    if (!content.includes("knowledge/operations/")) {
+      findings.push({
+        severity: "warning",
+        code: "adaptive-doc-missing-operations-link",
+        file: path.relative(root, file),
+        message: `Adaptive human doc should link to canonical operations knowledge: ${relative}.`
+      });
+    }
+  }
+
+  for (const file of markdownFiles(path.join(docs, "human"))) {
+    const relative = path.relative(docs, file).split(path.sep).join("/");
+    if (!adaptivePaths.has(relative) || expected.has(relative) || referenced.has(relative)) continue;
+    findings.push({
+      severity: "warning",
+      code: "orphan-adaptive-human-doc",
+      file: path.relative(root, file),
+      message: "Adaptive human doc exists but is not referenced by routes or detected signals."
+    });
   }
 }
 

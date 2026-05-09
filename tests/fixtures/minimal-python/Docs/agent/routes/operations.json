@@ -3,8 +3,18 @@
   "area": "operations",
   "routes": [
     {
-      "id": "operations-general",
       "priority": 100,
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        "inspect manually"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown",
+      "id": "operations-general",
       "taskTypes": [
         "setup",
         "config",
@@ -15,22 +25,12 @@
       "readFirst": [
         "human/setup.md"
       ],
-      "canonicalDocs": [
-        "knowledge/operations/README.md"
-      ],
-      "codeAreas": [
-        "inspect manually"
-      ],
       "updateDocs": [
         "knowledge/operations/README.md",
         "human/setup.md",
         "human/commands.md",
         "agent/validation.md"
-      ],
-      "validation": [
-        "test"
-      ],
-      "owner": "unknown"
+      ]
     }
   ]
 }

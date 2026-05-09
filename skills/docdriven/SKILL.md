@@ -27,8 +27,21 @@ DocDriven is Documentation Driven Development for agents and humans.
 - `Docs/human/` summarizes for people.
 - `Docs/agent/` routes agents.
 - `Docs/tmp/` is temporary and not truth.
+- The Docs structure is evidence-based, not pre-given.
+- Add, omit, split, or consolidate docs when the project shape requires it.
 - Do not duplicate canonical content.
 - Link instead of copying.
+
+## Dynamic Structure
+
+The default DocDriven tree is a starting scaffold. Choose the final human docs,
+knowledge docs, and route shards from repository evidence and reader needs.
+
+- Add a human doc only when a person has a distinct task or question.
+- Add a knowledge doc only when durable current truth needs a canonical home.
+- Split route shards only when it reduces context load or clarifies ownership.
+- Do not create docs for absent concepts just because a template names them.
+- Record uncertain documentation needs in `Docs/agent/gaps.md` instead of inventing structure.
 
 ## Meaningful Changes
 

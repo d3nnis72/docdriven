@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "area": "operations",
+  "routes": [
+    {
+      "priority": 100,
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        ".env.example",
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown",
+      "id": "operations-setup",
+      "taskTypes": [
+        "setup",
+        "local setup",
+        "onboarding"
+      ],
+      "readFirst": [
+        "human/setup.md"
+      ],
+      "updateDocs": [
+        "knowledge/operations/README.md",
+        "human/setup.md",
+        "human/commands.md"
+      ]
+    },
+    {
+      "priority": 100,
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        ".env.example",
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown",
+      "id": "operations-environment",
+      "taskTypes": [
+        "environment variable change",
+        "env change",
+        "secret setup"
+      ],
+      "readFirst": [
+        "human/environment.md"
+      ],
+      "updateDocs": [
+        "knowledge/operations/README.md",
+        "human/setup.md",
+        "human/environment.md"
+      ]
+    },
+    {
+      "priority": 100,
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        ".env.example",
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown",
+      "id": "operations-configuration",
+      "taskTypes": [
+        "config file change",
+        "runtime setting",
+        "feature flag"
+      ],
+      "readFirst": [
+        "human/configuration.md"
+      ],
+      "updateDocs": [
+        "knowledge/operations/README.md",
+        "human/setup.md",
+        "human/configuration.md"
+      ]
+    },
+    {
+      "priority": 100,
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        ".env.example",
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown",
+      "id": "operations-services",
+      "taskTypes": [
+        "service dependency change",
+        "external service",
+        "local service"
+      ],
+      "readFirst": [
+        "human/services.md"
+      ],
+      "updateDocs": [
+        "knowledge/operations/README.md",
+        "human/setup.md",
+        "human/services.md"
+      ]
+    },
+    {
+      "priority": 100,
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        ".env.example",
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown",
+      "id": "operations-deployment",
+      "taskTypes": [
+        "deployment change",
+        "release change",
+        "rollback"
+      ],
+      "readFirst": [
+        "human/deployment.md"
+      ],
+      "updateDocs": [
+        "knowledge/operations/README.md",
+        "human/setup.md",
+        "human/deployment.md"
+      ]
+    },
+    {
+      "priority": 100,
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        ".env.example",
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown",
+      "id": "operations-troubleshooting",
+      "taskTypes": [
+        "troubleshooting",
+        "setup failure",
+        "runtime failure"
+      ],
+      "readFirst": [
+        "human/troubleshooting.md"
+      ],
+      "updateDocs": [
+        "knowledge/operations/README.md",
+        "human/setup.md",
+        "human/troubleshooting.md"
+      ]
+    },
+    {
+      "priority": 100,
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        ".env.example",
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown",
+      "id": "operations-maintenance",
+      "taskTypes": [
+        "maintenance task change",
+        "migration",
+        "seed",
+        "scheduled job"
+      ],
+      "readFirst": [
+        "human/maintenance.md"
+      ],
+      "updateDocs": [
+        "knowledge/operations/README.md",
+        "human/setup.md",
+        "human/maintenance.md"
+      ]
+    },
+    {
+      "priority": 100,
+      "canonicalDocs": [
+        "knowledge/operations/README.md"
+      ],
+      "codeAreas": [
+        ".env.example",
+        "Dockerfile",
+        "docker-compose.yml",
+        ".github/workflows"
+      ],
+      "validation": [
+        "test"
+      ],
+      "owner": "unknown",
+      "id": "operations-validation",
+      "taskTypes": [
+        "validation command change",
+        "test command change",
+        "build command change"
+      ],
+      "readFirst": [
+        "agent/validation.md",
+        "human/commands.md"
+      ],
+      "updateDocs": [
+        "agent/validation.md",
+        "human/commands.md",
+        "knowledge/operations/README.md"
+      ]
+    }
+  ]
+}

@@ -80,6 +80,13 @@ Required columns:
 | Route ID | Task type | Read first | Canonical docs | Code areas | Update docs | Validation | Owner |
 |---|---|---|---|---|---|---|---|
 
+Operational projects may route to adaptive human docs:
+
+| Route ID | Task type | Read first | Canonical docs | Code areas | Update docs | Validation | Owner |
+|---|---|---|---|---|---|---|---|
+| operations-environment | Environment config | `human/environment.md` | `knowledge/operations/README.md` | env examples, config files | setup, environment, operations docs | documented setup check | operations |
+| operations-deployment | Deployment | `human/deployment.md` | `knowledge/operations/README.md` | deploy config, workflows | deployment, commands, validation | deploy preflight | operations |
+
 Every route must define read targets, code areas, update targets, validation,
 and ownership.
 
