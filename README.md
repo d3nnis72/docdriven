@@ -30,13 +30,13 @@ DocDriven treats documentation as project infrastructure.
 Install all skills:
 
 ```bash
-npx skills add D3nnis72/docdriven-skills
+npx skills add D3nnis72/DocDriven
 ```
 
 Install one skill:
 
 ```bash
-npx skills add D3nnis72/docdriven-skills --skill docdriven
+npx skills add D3nnis72/DocDriven --skill docdriven
 ```
 
 Then, in a project:
