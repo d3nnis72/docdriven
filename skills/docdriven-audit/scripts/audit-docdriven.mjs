@@ -41,10 +41,10 @@ const requiredColumns = [
 ];
 
 const sizeTargets = [
-  { pattern: /(^|\/)README\.md$/, maxWords: 250, type: "router" },
   { pattern: /\/human\//, maxWords: 700, type: "human" },
   { pattern: /\/agent\//, maxWords: 500, type: "agent" },
-  { pattern: /\/knowledge\//, maxWords: 1000, type: "knowledge" }
+  { pattern: /\/knowledge\//, maxWords: 1000, type: "knowledge" },
+  { pattern: /(^|\/)README\.md$/, maxWords: 250, type: "router" }
 ];
 
 const findings = [];
@@ -62,6 +62,7 @@ if (routeGraph) {
   checkAdaptiveHumanDocs(routeGraph);
 }
 checkPlaceholders();
+checkArchitectureContract();
 
 if (format === "json") {
   console.log(JSON.stringify({ findings }, null, 2));
@@ -393,6 +394,49 @@ function checkPlaceholders() {
   }
 }
 
+function checkArchitectureContract() {
+  const architectureFile = docsPath("knowledge/architecture/README.md");
+  if (!fs.existsSync(architectureFile)) return;
+
+  const content = fs.readFileSync(architectureFile, "utf8");
+  const requiredSignals = [
+    /Adaptive Architecture Contract/i,
+    /Project Continuity Rules/i,
+    /Structural Ownership/i,
+    /Configuration First/i
+  ];
+  const missing = requiredSignals.filter((pattern) => !pattern.test(content));
+  if (missing.length) {
+    findings.push({
+      severity: "warning",
+      code: "weak-architecture-contract",
+      file: path.relative(root, architectureFile),
+      message: "Architecture docs should explain adaptive structure, project continuity, structural ownership, and configuration-first rules."
+    });
+  }
+
+  const lower = content.toLowerCase();
+  const structureSignals = ["apps", "packages", "src", "lib", "services", "domain", "domains"]
+    .filter((candidate) => fs.existsSync(path.join(root, candidate)));
+  if (structureSignals.length && !mentionsAny(lower, ["current structure", "boundary", "boundaries", "dependency direction", "structural ownership"])) {
+    findings.push({
+      severity: "warning",
+      code: "undocumented-structure-signals",
+      file: path.relative(root, architectureFile),
+      message: `Repository has structure signals (${structureSignals.join(", ")}) but architecture docs do not explain current structure or boundaries.`
+    });
+  }
+
+  if (project.configFiles.length && !mentionsAny(lower, ["configuration first", "configuration", "config flow", "runtime setting"])) {
+    findings.push({
+      severity: "warning",
+      code: "undocumented-configuration-pattern",
+      file: path.relative(root, architectureFile),
+      message: "Repository has configuration files but architecture docs do not explain the configuration pattern."
+    });
+  }
+}
+
 function checkContextMapRouteIds(routeGraph) {
   const file = path.join(docs, "agent", "context-map.md");
   if (!fs.existsSync(file)) return;
@@ -587,6 +631,10 @@ function countWords(content) {
     .replace(/```[\s\S]*?```/g, " ")
     .split(/\s+/)
     .filter(Boolean).length;
+}
+
+function mentionsAny(content, values) {
+  return values.some((value) => content.includes(value));
 }
 
 function printText(items) {

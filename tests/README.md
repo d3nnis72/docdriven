@@ -16,6 +16,8 @@ Validation targets:
 - placeholder scaffold text is detected
 - adaptive human docs are generated only when operational signals require them
 - adaptive human docs are linked from setup and to operations knowledge
+- generated architecture docs include the adaptive architecture contract
+- audits warn on weak architecture contracts and missing structure/configuration documentation
 - audit reports missing files, oversized docs, and invalid route tables
 - skills can be listed or installed by `npx skills`
 

@@ -8,7 +8,12 @@
       "taskTypes": [
         "architecture change",
         "dependency direction",
-        "runtime flow"
+        "runtime flow",
+        "code organization",
+        "structural ownership",
+        "configuration pattern",
+        "contract location",
+        "coding pattern"
       ],
       "readFirst": [
         "knowledge/architecture/README.md"

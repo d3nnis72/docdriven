@@ -69,6 +69,11 @@ Route shards use this shape:
 - Route shards should stay under 500 lines.
 - Split large shards by package, domain, or route type.
 - If no route matches, update a route shard or record the gap in `Docs/agent/gaps.md`.
+- Architecture routes cover structural ownership, configuration patterns, code
+  organization, contract locations, dependency direction, and durable coding
+  patterns.
+- Agents must not create project structure from generic preference. New folders,
+  docs, or route shards need repository evidence and docs updates.
 
 ## Context Map
 
@@ -101,3 +106,7 @@ Default workflow:
 7. Update `updateDocs` and route shards when ownership, validation, or structure changes.
 8. Record unknowns in `Docs/agent/gaps.md`.
 9. Run route validation.
+
+Project continuity rule: prefer documented long-term project consistency over
+local convenience. If the docs do not explain a durable convention, inspect
+nearby code and record the gap instead of silently starting a parallel pattern.

@@ -10,6 +10,10 @@ changes code, it should know which documentation describes the relevant part of
 the system. After an agent changes code, it should update the affected
 documentation in the same task.
 
+DocDriven is for long-lived projects. It should preserve project continuity:
+agents follow the project's documented architecture, style, configuration flow,
+and validation reality instead of introducing generic preferences on each task.
+
 ## Core Idea
 
 DocDriven separates executable truth from explanatory truth.
@@ -97,6 +101,11 @@ can become stale. Current documentation should describe current truth. If a
 project needs architectural decision records, they must be clearly marked as
 historical and linked only when useful.
 
+The structure is adaptive. The scaffold is a starting map, not the territory.
+Add, split, rename, or consolidate folders, docs, or route shards only when
+repository evidence shows a stable responsibility, repeated pattern, boundary,
+configuration rule, shared contract, or validation need.
+
 ## Folder Responsibilities
 
 ### `Docs/human/`
@@ -144,7 +153,9 @@ the main context source for agents and the detailed reference layer for humans.
 
 Default categories:
 
-- `architecture/`: system shape, boundaries, dependency direction, runtime flow.
+- `architecture/`: adaptive architecture contract, system shape, boundaries,
+  dependency direction, runtime flow, structural ownership, configuration flow,
+  and durable coding patterns.
 - `features/`: user-visible or business-visible capabilities and behavior.
 - `interfaces/`: APIs, CLI commands, events, integrations, public contracts.
 - `operations/`: configuration, testing strategy, deployment, troubleshooting.
@@ -156,6 +167,10 @@ Optional categories:
 
 The default should not overfit. Start with architecture, features, interfaces,
 and operations. Add more only when the project needs them.
+
+Architecture docs must not copy type, schema, or interface definitions. They
+explain where authoritative code contracts live, which modules own them, how
+consumers access them, and when changes require docs or route updates.
 
 ### `Docs/tmp/`
 
@@ -184,6 +199,9 @@ DocDriven follows strict documentation ownership.
 - Parent files route readers to child files.
 - Leaf files contain the detailed truth.
 - Missing documentation is part of the work, not a separate cleanup task.
+- Long-term project consistency beats local convenience.
+- Agents must not hardcode favorite folders, architecture styles, config flows,
+  or coding-style preferences.
 
 ## Agent Operating Contract
 
@@ -217,6 +235,12 @@ Example:
 Every route should define both read targets and update targets. If a task does
 not match an existing route, the agent should update `context-map.md` or record
 the gap in `Docs/agent/gaps.md`.
+
+Architecture routes should cover structure-changing work: code organization,
+structural ownership, configuration patterns, contract locations, dependency
+direction, and durable coding patterns. If those conventions are unclear, the
+agent should inspect nearby code and record a gap instead of silently creating a
+parallel style.
 
 ## LLM Context Management
 

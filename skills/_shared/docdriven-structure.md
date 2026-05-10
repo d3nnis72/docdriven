@@ -30,6 +30,42 @@ The scaffold is not a closed structure. Agents should choose the final docs
 tree from project evidence, reader needs, ownership boundaries, and validation
 reality.
 
+## Adaptive Architecture Contract
+
+The generated architecture structure is a guideline, not a cage. DocDriven must
+describe the architecture that exists in the repository and the conventions the
+project has chosen for the long term.
+
+Architecture docs should capture:
+
+- current system shape and major boundaries
+- dependency direction and import boundaries
+- structural ownership for config, code contracts, schemas, generated code,
+  provider adapters, shared utilities, and package boundaries
+- durable coding patterns that are specific to this project
+- when to add, split, rename, or consolidate folders, docs, or route shards
+
+Agents must not hardcode generic preferences such as `types/`, `utils/`,
+`services/`, Clean Architecture, MVC, feature folders, or any other pattern just
+because it is familiar. They must follow documented project architecture,
+executable style config, validation commands, and nearby code.
+
+Docs should not duplicate type, schema, or interface definitions. They should
+explain where authoritative code contracts live, which module owns them, how
+consumers access them, and when changes require docs or route updates.
+
+Add structure only when evidence justifies it:
+
+- repeated responsibility appears in multiple places
+- ownership is unclear for config, contracts, adapters, or shared code
+- files grow beyond a single clear responsibility
+- imports cross boundaries in ways that need a rule
+- hardcoded runtime settings appear or a config flow is needed
+- a new package, domain, service, provider, or integration introduces a boundary
+- a convention is important enough to validate, lint, test, or audit
+
+When evidence is weak, record a gap instead of inventing structure.
+
 `Docs/human/` usually starts with `overview.md`, `setup.md`, `commands.md`, and
 `architecture.md`. Projects with operational evidence may have adaptive human
 docs such as `environment.md`, `configuration.md`, `services.md`,

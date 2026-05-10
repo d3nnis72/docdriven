@@ -232,9 +232,14 @@ function titleCase(value) {
 function humanArchitecture() {
   return `# Architecture
 
-This is the short human architecture summary.
+Architecture is documented as an adaptive contract.
 
-Detailed architecture truth belongs in \`../knowledge/architecture/\`.
+Use this page for the short human summary: the system shape, the major
+boundaries, and the rules a contributor should know before changing structure.
+
+Detailed architecture truth belongs in \`../knowledge/architecture/\`. Do not
+copy code contracts here; link to the canonical code and knowledge docs that
+explain where contracts live.
 `;
 }
 
@@ -452,7 +457,7 @@ Use this table to choose the smallest useful context route.
 
 | Route ID | Task type | Read first | Canonical docs | Code areas | Update docs | Validation | Owner |
 |---|---|---|---|---|---|---|---|
-| architecture-general | Architecture change | \`knowledge/architecture/README.md\` | \`knowledge/architecture/README.md\` | ${codeArea(project)} | architecture docs, human architecture if user-facing | ${validationKey(project)} | unknown |
+| architecture-general | Architecture change, code organization, structural ownership, configuration pattern, contract location, coding pattern | \`knowledge/architecture/README.md\` | \`knowledge/architecture/README.md\` | ${codeArea(project)} | architecture docs, human architecture if user-facing | ${validationKey(project)} | unknown |
 | feature-general | Feature behavior | \`knowledge/features/README.md\` | \`knowledge/features/README.md\` | ${codeArea(project)} | affected feature docs, human overview if needed | ${validationKey(project)} | unknown |
 | interface-general | Interface change | \`knowledge/interfaces/README.md\` | \`knowledge/interfaces/README.md\` | ${codeArea(project)} | interface docs and affected feature docs | ${validationKey(project)} | unknown |
 ${operationRows}
@@ -464,7 +469,16 @@ function routeShard(project, area) {
     architecture: {
       id: "architecture-general",
       priority: 100,
-      taskTypes: ["architecture change", "dependency direction", "runtime flow"],
+      taskTypes: [
+        "architecture change",
+        "dependency direction",
+        "runtime flow",
+        "code organization",
+        "structural ownership",
+        "configuration pattern",
+        "contract location",
+        "coding pattern"
+      ],
       readFirst: ["knowledge/architecture/README.md"],
       canonicalDocs: ["knowledge/architecture/README.md"],
       codeAreas: [codeArea(project)],
@@ -582,6 +596,12 @@ function updateProtocol() {
 - User-facing setup or command changes update human docs.
 - Interface changes update \`knowledge/interfaces/\`.
 - Architecture boundary changes update \`knowledge/architecture/\`.
+- Structural changes update the architecture route before they become a new convention.
+- Do not hardcode generic agent preferences such as default folders, favorite architecture patterns, or personal coding style.
+- Follow documented project architecture, coding style, config flow, and route ownership.
+- Prefer long-term project consistency over local convenience.
+- Add, split, rename, or consolidate folders and docs only when repository evidence shows stable responsibility, repeated patterns, dependency boundaries, or validation needs.
+- When a durable convention is missing, infer from nearby code, choose the smallest consistent change, and record uncertainty in \`agent/gaps.md\`.
 - Missing routes go in \`agent/gaps.md\` until fixed.
 - Tmp notes are not truth until promoted.
 `;
@@ -648,7 +668,48 @@ Knowledge docs contain the canonical explanation of current project truth.
 function architectureReadme() {
   return `# Architecture
 
-Use this folder for system shape, boundaries, dependency direction, runtime flow, and cross-cutting patterns.
+Architecture docs describe how this project is actually structured. They are an adaptive contract for long-term project continuity, not a generic folder template.
+
+## Adaptive Architecture Contract
+
+Document current system shape, boundaries, dependency direction, runtime flow, and cross-cutting patterns. Add, split, rename, or consolidate docs and code areas only when repository evidence shows stable responsibility, repeated patterns, dependency boundaries, configuration rules, shared contracts, or validation needs.
+
+Do not invent a standard structure because an agent prefers it.
+
+## Project Continuity Rules
+
+- Follow project docs, nearby code, formatter, linter, and validation commands before applying generic agent taste.
+- Prefer long-term project consistency over local convenience.
+- New durable conventions require docs and route updates.
+- If the convention is unclear, record a gap instead of silently starting a new pattern.
+
+## Structural Ownership
+
+Document where authoritative code contracts and structural concepts live: configuration modules, API contracts, schemas, domain models, provider adapters, shared utilities, generated code, and package boundaries.
+
+Do not copy type, schema, or interface definitions into docs. Explain where authoritative code lives, which module owns it, how consumers access it, and when changes require docs or route updates.
+
+## Configuration First
+
+Runtime configuration should be discoverable through documented project paths. Avoid hardcoded URLs, provider IDs, secrets, feature flags, limits, and other runtime settings in feature code when the project has or needs a config flow.
+
+Document where configuration is loaded, validated, typed if applicable, and overridden by environment or deployment settings. Detailed operational setup belongs in \`../operations/README.md\` or a routed operations doc.
+
+## Current Structure
+
+Replace this section with verified project structure after inspecting the repository.
+
+## Boundaries And Dependency Direction
+
+Record allowed dependency direction and import boundaries when verified.
+
+## Coding Patterns
+
+Record durable coding patterns that future agents should follow. Keep this focused on project-specific conventions, not generic style advice.
+
+## Open Questions
+
+Record uncertain architecture ownership in \`../../agent/gaps.md\` instead of guessing.
 `;
 }
 

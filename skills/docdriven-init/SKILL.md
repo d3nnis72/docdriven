@@ -23,6 +23,7 @@ Detect:
 - package usage: package manager, workspaces, scripts, dependencies
 - code shape: source dirs, app dirs, package dirs, tests
 - runtime dynamics: config, env, CI, deployment, database or schema tools
+- architecture dynamics: structural ownership, code organization, contract locations, configuration flow, dependency direction, and durable coding patterns
 - validation reality: actual test, build, lint, typecheck, and dev commands
 - documentation fit: human questions, durable knowledge areas, route shards, ownership, and validation evidence the project actually needs
 
@@ -36,6 +37,12 @@ generic tree. Decide from evidence:
 - which interfaces, domains, packages, or operations deserve their own routes
 - which areas are absent and should not get docs yet
 - which likely docs are uncertain and should be recorded as gaps
+- which architecture and coding-style conventions should be followed instead of generic agent preferences
+
+Do not make the local skill encode a generic architecture. It should tell future
+agents to follow this project's documented structure, executable style config,
+nearby code, and route graph. If a long-term convention is not known, record the
+gap.
 
 ## Generator
 

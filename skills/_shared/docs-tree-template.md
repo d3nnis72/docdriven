@@ -61,3 +61,9 @@ Before treating the scaffold as complete:
 - add docs for real setup, operational, domain, or interface needs
 - split docs only when it improves navigation or ownership
 - record uncertain docs work in `agent/gaps.md`
+
+Architecture docs are adaptive. The default `knowledge/architecture/README.md`
+should explain the actual project structure, structural ownership, dependency
+direction, configuration flow, and durable coding patterns. It must not force a
+generic folder layout. It should tell agents where authoritative code contracts
+live and when a new folder, doc, or route is justified.

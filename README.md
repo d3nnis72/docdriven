@@ -25,6 +25,11 @@ DocDriven exists to stop that.
 
 DocDriven treats documentation as project infrastructure.
 
+It is built for long-lived projects. The agent should not bring a new personal
+architecture to every task. It should learn the project's documented structure,
+style, config flow, and validation rules, then make the next change fit that
+system.
+
 ## Quickstart
 
 Install all skills:
@@ -75,7 +80,8 @@ it.
 
 `docdriven-audit` checks whether the graph is still current. It looks for stale
 routes, missing docs, weak validation, unresolved placeholders, orphan knowledge
-docs, and route/code drift.
+docs, weak architecture contracts, undocumented structure signals, missing
+configuration-pattern documentation, and route/code drift.
 
 There is more to it, but that is the core: DocDriven gives agents a shared,
 continuously maintained context layer. The agent does not need to remember the
@@ -174,6 +180,26 @@ Route shards can be split by package, domain, feature area, or interface area.
 The goal is low-token context loading: agents read the index, choose a shard,
 and load only the relevant project truth.
 
+## Adaptive Architecture
+
+DocDriven treats architecture as an adaptive contract. The generated structure
+is a starting map, not a mandatory project shape.
+
+Architecture docs should explain how the current project is organized, where
+authoritative code contracts live, which modules own configuration and adapter
+boundaries, what dependency direction is allowed, and which coding patterns are
+durable. They should not copy type, schema, or interface definitions from code.
+
+Agents must not hardcode favorite folders, architecture styles, config flows,
+or coding conventions. If the project has a documented rule, follow it. If the
+rule is missing, inspect nearby code, choose the smallest consistent change,
+and record the gap instead of silently starting a parallel pattern.
+
+New folders, docs, or route shards are justified by evidence: repeated
+responsibility, unclear ownership, files that outgrow one purpose, boundary
+changes, hardcoded runtime settings, shared contracts, or conventions important
+enough to validate.
+
 ## Why This Exists
 
 Most project documentation tries to serve too many readers at once.
@@ -216,8 +242,10 @@ instead of asking them to search blindly.
 - Current truth beats historical explanation.
 - Code and checks are evidence.
 - Knowledge docs explain the current system.
+- Architecture docs preserve long-term project continuity.
 - Every concept should have one canonical home.
 - Agents should read the smallest useful context, not the whole docs folder.
+- Agents should follow documented project style, not generic agent taste.
 - Meaningful code changes should update docs in the same task.
 - Missing docs are part of the work, not a later cleanup.
 - Uncertainty should be recorded, not hidden.

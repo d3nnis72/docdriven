@@ -31,6 +31,8 @@ DocDriven is Documentation Driven Development for agents and humans.
 - Add, omit, split, or consolidate docs when the project shape requires it.
 - Do not duplicate canonical content.
 - Link instead of copying.
+- Follow the project's documented architecture and coding style; do not hardcode generic agent preferences.
+- Prefer long-term project consistency over local convenience.
 
 ## Dynamic Structure
 
@@ -42,6 +44,27 @@ knowledge docs, and route shards from repository evidence and reader needs.
 - Split route shards only when it reduces context load or clarifies ownership.
 - Do not create docs for absent concepts just because a template names them.
 - Record uncertain documentation needs in `Docs/agent/gaps.md` instead of inventing structure.
+
+## Project Continuity
+
+DocDriven is for long-lived projects. Agents must not introduce favorite
+folders, architecture styles, config patterns, testing patterns, or coding
+style preferences just because they are common elsewhere.
+
+Use project evidence in this order:
+
+1. executable truth such as formatter, linter, type, schema, config, and test files
+2. `Docs/agent/` routes and validation protocol
+3. `Docs/knowledge/architecture/` and related canonical knowledge docs
+4. nearby code when docs do not yet explain the convention
+
+If a durable convention is missing, choose the smallest locally consistent
+change and record the gap. If a change creates a new convention, update the
+architecture docs and routes in the same task.
+
+Docs must not copy type, schema, or interface definitions from code. They should
+explain where authoritative code contracts live, which module owns them, how
+consumers should access them, and when changes require docs or route updates.
 
 ## Meaningful Changes
 

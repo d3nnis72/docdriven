@@ -14,11 +14,13 @@ Use this skill to create and adapt the initial `Docs/` structure.
 3. Inspect existing docs and code structure.
 4. Create missing DocDriven folders, manifest, route shards, and canonical files.
 5. Fill files with concise, current, non-placeholder content.
-6. Use `Docs/agent/manifest.json` as the machine route index.
-7. Use `Docs/agent/context-map.md` as the readable route view.
-8. Keep human docs short.
-9. Keep knowledge docs canonical.
-10. Keep tmp docs explicitly non-authoritative.
+6. Document the adaptive architecture contract: current structure, boundaries,
+   structural ownership, configuration flow, and durable coding patterns.
+7. Use `Docs/agent/manifest.json` as the machine route index.
+8. Use `Docs/agent/context-map.md` as the readable route view.
+9. Keep human docs short.
+10. Keep knowledge docs canonical.
+11. Keep tmp docs explicitly non-authoritative.
 
 Generated placeholders are scaffolding only. Build is not complete until
 placeholder text in human or knowledge docs is replaced or recorded as a gap.
@@ -33,6 +35,8 @@ calling the build complete.
 - Create project-specific docs when humans or agents have distinct tasks.
 - Split knowledge docs or route shards when it reduces context or clarifies ownership.
 - Record uncertain docs, missing owners, and unresolved setup facts in `Docs/agent/gaps.md`.
+- Do not turn the scaffold into a mandatory architecture.
+- Make future agents follow project-specific style and structure instead of hardcoding generic preferences.
 
 ## Generator
 

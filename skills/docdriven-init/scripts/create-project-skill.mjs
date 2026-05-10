@@ -194,6 +194,25 @@ ${operationalSignalLines(project)}
 6. Run route validation.
 7. Record gaps in ${docs}/agent/gaps.md.
 
+## Project Continuity
+
+DocDriven is for long-lived projects. Follow this repository's documented
+architecture, coding style, configuration flow, route ownership, and validation
+commands before applying generic agent preferences.
+
+Do not invent default folders, architecture styles, config patterns, testing
+patterns, or coding conventions. If a durable convention is unclear, inspect
+nearby code, choose the smallest locally consistent change, and record the gap
+in ${docs}/agent/gaps.md.
+
+Architecture, structural ownership, configuration patterns, code organization,
+contract locations, and durable coding patterns route through
+${docs}/agent/routes/architecture.json and ${docs}/knowledge/architecture/README.md.
+
+Docs must not copy type, schema, or interface definitions from code. They should
+explain where authoritative code contracts live, which module owns them, how
+consumers access them, and when changes require docs or route updates.
+
 ## Knowledge Categories
 
 ${categories}
@@ -207,6 +226,7 @@ ${commandLines(project.commands)}
 - Behavior changes update the affected knowledge docs.
 - User-facing changes update human docs when orientation, setup, or commands change.
 - Environment, configuration, services, deployment, troubleshooting, and maintenance changes update affected human docs and ${docs}/knowledge/operations/README.md.
+- Architecture, structural ownership, configuration patterns, code organization, contract locations, and durable coding-pattern changes update ${docs}/knowledge/architecture/README.md and the relevant route shard.
 - Routing gaps update ${docs}/agent/context-map.md or ${docs}/agent/gaps.md.
 - Route, ownership, code area, and validation changes update ${docs}/agent/manifest.json and route shards.
 - Validation command changes update ${docs}/agent/validation.md and ${docs}/human/commands.md.
