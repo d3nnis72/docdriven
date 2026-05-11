@@ -46,6 +46,10 @@ Project continuity rules:
 - Use executable truth and project docs before applying generic patterns.
 - Do not invent default folders, architecture styles, config flows, or coding
   conventions.
+- Look for existing reusable components, helpers, hooks, adapters, and project
+  primitives before creating new one-off implementations.
+- Keep feature-local code local until repeated use or stable responsibility
+  justifies promotion.
 - If a durable rule is unclear, infer from nearby code and record the gap.
 - Docs describe where code contracts live; they do not duplicate type, schema,
   or interface definitions.

@@ -403,7 +403,8 @@ function checkArchitectureContract() {
     /Adaptive Architecture Contract/i,
     /Project Continuity Rules/i,
     /Structural Ownership/i,
-    /Configuration First/i
+    /Configuration First/i,
+    /Reuse And Composition/i
   ];
   const missing = requiredSignals.filter((pattern) => !pattern.test(content));
   if (missing.length) {
@@ -411,7 +412,7 @@ function checkArchitectureContract() {
       severity: "warning",
       code: "weak-architecture-contract",
       file: path.relative(root, architectureFile),
-      message: "Architecture docs should explain adaptive structure, project continuity, structural ownership, and configuration-first rules."
+      message: "Architecture docs should explain adaptive structure, project continuity, structural ownership, configuration-first rules, and reuse/composition rules."
     });
   }
 
@@ -433,6 +434,17 @@ function checkArchitectureContract() {
       code: "undocumented-configuration-pattern",
       file: path.relative(root, architectureFile),
       message: "Repository has configuration files but architecture docs do not explain the configuration pattern."
+    });
+  }
+
+  const reuseSignals = ["components", "ui", "hooks", "composables", "utils", "shared"]
+    .filter((candidate) => fs.existsSync(path.join(root, candidate)) || fs.existsSync(path.join(root, "src", candidate)));
+  if (reuseSignals.length && !mentionsAny(lower, ["reuse and composition", "reusable", "component", "project primitive", "shared primitive", "composition pattern"])) {
+    findings.push({
+      severity: "warning",
+      code: "undocumented-reuse-pattern",
+      file: path.relative(root, architectureFile),
+      message: `Repository has reuse signals (${reuseSignals.join(", ")}) but architecture docs do not explain reusable primitives or composition rules.`
     });
   }
 }

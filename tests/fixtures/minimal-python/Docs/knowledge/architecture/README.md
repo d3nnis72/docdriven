@@ -27,6 +27,12 @@ Runtime configuration should be discoverable through documented project paths. A
 
 Document where configuration is loaded, validated, typed if applicable, and overridden by environment or deployment settings. Detailed operational setup belongs in `../operations/README.md` or a routed operations doc.
 
+## Reuse And Composition
+
+Prefer existing project primitives over new one-off implementations. Look for reusable components, helpers, hooks, adapters, contracts, config helpers, test helpers, and established composition patterns before creating a new abstraction.
+
+Keep feature-local code local until reuse is real. Promote reusable code only when repeated use, stable responsibility, or a documented composition pattern justifies it. Do not create parallel components or helpers for concepts that already have a project home.
+
 ## Current Structure
 
 Replace this section with verified project structure after inspecting the repository.

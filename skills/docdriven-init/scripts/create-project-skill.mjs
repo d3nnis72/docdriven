@@ -206,8 +206,11 @@ nearby code, choose the smallest locally consistent change, and record the gap
 in ${docs}/agent/gaps.md.
 
 Architecture, structural ownership, configuration patterns, code organization,
-contract locations, and durable coding patterns route through
+contract locations, component reuse, shared primitives, composition patterns,
+and durable coding patterns route through
 ${docs}/agent/routes/architecture.json and ${docs}/knowledge/architecture/README.md.
+
+Before creating new code, search for reusable components, helpers, hooks, adapters, and project primitives. Extend an existing primitive when that fits the documented pattern. Keep feature-local code local until repeated use or stable responsibility justifies promotion.
 
 Docs must not copy type, schema, or interface definitions from code. They should
 explain where authoritative code contracts live, which module owns them, how
@@ -226,7 +229,7 @@ ${commandLines(project.commands)}
 - Behavior changes update the affected knowledge docs.
 - User-facing changes update human docs when orientation, setup, or commands change.
 - Environment, configuration, services, deployment, troubleshooting, and maintenance changes update affected human docs and ${docs}/knowledge/operations/README.md.
-- Architecture, structural ownership, configuration patterns, code organization, contract locations, and durable coding-pattern changes update ${docs}/knowledge/architecture/README.md and the relevant route shard.
+- Architecture, structural ownership, configuration patterns, code organization, contract locations, component reuse, shared primitives, composition patterns, and durable coding-pattern changes update ${docs}/knowledge/architecture/README.md and the relevant route shard.
 - Routing gaps update ${docs}/agent/context-map.md or ${docs}/agent/gaps.md.
 - Route, ownership, code area, and validation changes update ${docs}/agent/manifest.json and route shards.
 - Validation command changes update ${docs}/agent/validation.md and ${docs}/human/commands.md.

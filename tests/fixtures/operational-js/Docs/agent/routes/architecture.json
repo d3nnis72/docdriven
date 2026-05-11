@@ -13,7 +13,10 @@
         "structural ownership",
         "configuration pattern",
         "contract location",
-        "coding pattern"
+        "coding pattern",
+        "component reuse",
+        "shared primitive",
+        "composition pattern"
       ],
       "readFirst": [
         "knowledge/architecture/README.md"

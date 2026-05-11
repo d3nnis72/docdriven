@@ -42,6 +42,8 @@ Architecture docs should capture:
 - dependency direction and import boundaries
 - structural ownership for config, code contracts, schemas, generated code,
   provider adapters, shared utilities, and package boundaries
+- reuse and composition rules for components, hooks, helpers, adapters, test
+  helpers, and shared project primitives
 - durable coding patterns that are specific to this project
 - when to add, split, rename, or consolidate folders, docs, or route shards
 
@@ -54,6 +56,12 @@ Docs should not duplicate type, schema, or interface definitions. They should
 explain where authoritative code contracts live, which module owns them, how
 consumers access them, and when changes require docs or route updates.
 
+Agents should look for existing reusable project primitives before creating new
+ones. Reusable components, hooks, helpers, adapters, contracts, config helpers,
+and test helpers should have a documented home when they become durable. Keep
+feature-local code local until repeated use, stable responsibility, or a
+documented composition pattern justifies promotion.
+
 Add structure only when evidence justifies it:
 
 - repeated responsibility appears in multiple places
@@ -62,6 +70,8 @@ Add structure only when evidence justifies it:
 - imports cross boundaries in ways that need a rule
 - hardcoded runtime settings appear or a config flow is needed
 - a new package, domain, service, provider, or integration introduces a boundary
+- reusable components, helpers, hooks, adapters, or shared primitives start
+  accumulating without clear ownership
 - a convention is important enough to validate, lint, test, or audit
 
 When evidence is weak, record a gap instead of inventing structure.

@@ -62,6 +62,12 @@ If a durable convention is missing, choose the smallest locally consistent
 change and record the gap. If a change creates a new convention, update the
 architecture docs and routes in the same task.
 
+Before creating new components, helpers, hooks, adapters, contracts, config
+helpers, or test helpers, look for existing reusable project primitives and
+documented composition patterns. Keep feature-local code local until reuse is
+real. Promote reusable code only when repeated use, stable responsibility, or
+project architecture justifies it.
+
 Docs must not copy type, schema, or interface definitions from code. They should
 explain where authoritative code contracts live, which module owns them, how
 consumers should access them, and when changes require docs or route updates.

@@ -20,7 +20,8 @@ Use this skill to check documentation drift and maintainability.
 Audit checks the route graph, referenced docs, referenced code areas, validation
 evidence, placeholder text, oversized shards, orphan knowledge docs, tmp
 content, context-map drift, weak architecture contracts, undocumented structure
-signals, and missing configuration-pattern documentation.
+signals, missing configuration-pattern documentation, and missing
+reuse/composition documentation for reusable project primitives.
 
 ## References
 

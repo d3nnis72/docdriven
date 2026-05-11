@@ -72,6 +72,9 @@ Route shards use this shape:
 - Architecture routes cover structural ownership, configuration patterns, code
   organization, contract locations, dependency direction, and durable coding
   patterns.
+- Architecture routes also cover reusable components, shared primitives, hooks,
+  helpers, adapters, and composition patterns when they affect long-term project
+  structure.
 - Agents must not create project structure from generic preference. New folders,
   docs, or route shards need repository evidence and docs updates.
 

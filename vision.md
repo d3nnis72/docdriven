@@ -155,7 +155,7 @@ Default categories:
 
 - `architecture/`: adaptive architecture contract, system shape, boundaries,
   dependency direction, runtime flow, structural ownership, configuration flow,
-  and durable coding patterns.
+  reuse/composition rules, and durable coding patterns.
 - `features/`: user-visible or business-visible capabilities and behavior.
 - `interfaces/`: APIs, CLI commands, events, integrations, public contracts.
 - `operations/`: configuration, testing strategy, deployment, troubleshooting.
@@ -171,6 +171,12 @@ and operations. Add more only when the project needs them.
 Architecture docs must not copy type, schema, or interface definitions. They
 explain where authoritative code contracts live, which modules own them, how
 consumers access them, and when changes require docs or route updates.
+
+Architecture docs should also explain reusable project primitives: components,
+hooks, helpers, adapters, config helpers, test helpers, and composition
+patterns. Agents should look for these before creating one-off implementations.
+Feature-local code stays local until repeated use or stable responsibility
+justifies promotion.
 
 ### `Docs/tmp/`
 
@@ -202,6 +208,7 @@ DocDriven follows strict documentation ownership.
 - Long-term project consistency beats local convenience.
 - Agents must not hardcode favorite folders, architecture styles, config flows,
   or coding-style preferences.
+- Reuse should be real and documented, not hypothetical or parallel.
 
 ## Agent Operating Contract
 
@@ -238,9 +245,9 @@ the gap in `Docs/agent/gaps.md`.
 
 Architecture routes should cover structure-changing work: code organization,
 structural ownership, configuration patterns, contract locations, dependency
-direction, and durable coding patterns. If those conventions are unclear, the
-agent should inspect nearby code and record a gap instead of silently creating a
-parallel style.
+direction, component reuse, shared primitives, composition patterns, and durable
+coding patterns. If those conventions are unclear, the agent should inspect
+nearby code and record a gap instead of silently creating a parallel style.
 
 ## LLM Context Management
 

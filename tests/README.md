@@ -17,7 +17,8 @@ Validation targets:
 - adaptive human docs are generated only when operational signals require them
 - adaptive human docs are linked from setup and to operations knowledge
 - generated architecture docs include the adaptive architecture contract
-- audits warn on weak architecture contracts and missing structure/configuration documentation
+- generated architecture docs include reuse and composition rules
+- audits warn on weak architecture contracts and missing structure/configuration/reuse documentation
 - audit reports missing files, oversized docs, and invalid route tables
 - skills can be listed or installed by `npx skills`
 

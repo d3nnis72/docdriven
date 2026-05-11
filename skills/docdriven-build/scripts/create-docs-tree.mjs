@@ -457,7 +457,7 @@ Use this table to choose the smallest useful context route.
 
 | Route ID | Task type | Read first | Canonical docs | Code areas | Update docs | Validation | Owner |
 |---|---|---|---|---|---|---|---|
-| architecture-general | Architecture change, code organization, structural ownership, configuration pattern, contract location, coding pattern | \`knowledge/architecture/README.md\` | \`knowledge/architecture/README.md\` | ${codeArea(project)} | architecture docs, human architecture if user-facing | ${validationKey(project)} | unknown |
+| architecture-general | Architecture change, code organization, structural ownership, configuration pattern, contract location, coding pattern, component reuse, shared primitive, composition pattern | \`knowledge/architecture/README.md\` | \`knowledge/architecture/README.md\` | ${codeArea(project)} | architecture docs, human architecture if user-facing | ${validationKey(project)} | unknown |
 | feature-general | Feature behavior | \`knowledge/features/README.md\` | \`knowledge/features/README.md\` | ${codeArea(project)} | affected feature docs, human overview if needed | ${validationKey(project)} | unknown |
 | interface-general | Interface change | \`knowledge/interfaces/README.md\` | \`knowledge/interfaces/README.md\` | ${codeArea(project)} | interface docs and affected feature docs | ${validationKey(project)} | unknown |
 ${operationRows}
@@ -477,7 +477,10 @@ function routeShard(project, area) {
         "structural ownership",
         "configuration pattern",
         "contract location",
-        "coding pattern"
+        "coding pattern",
+        "component reuse",
+        "shared primitive",
+        "composition pattern"
       ],
       readFirst: ["knowledge/architecture/README.md"],
       canonicalDocs: ["knowledge/architecture/README.md"],
@@ -600,6 +603,8 @@ function updateProtocol() {
 - Do not hardcode generic agent preferences such as default folders, favorite architecture patterns, or personal coding style.
 - Follow documented project architecture, coding style, config flow, and route ownership.
 - Prefer long-term project consistency over local convenience.
+- Prefer existing reusable project primitives before creating one-off implementations.
+- Keep feature-local code local until reuse is real.
 - Add, split, rename, or consolidate folders and docs only when repository evidence shows stable responsibility, repeated patterns, dependency boundaries, or validation needs.
 - When a durable convention is missing, infer from nearby code, choose the smallest consistent change, and record uncertainty in \`agent/gaps.md\`.
 - Missing routes go in \`agent/gaps.md\` until fixed.
@@ -694,6 +699,12 @@ Do not copy type, schema, or interface definitions into docs. Explain where auth
 Runtime configuration should be discoverable through documented project paths. Avoid hardcoded URLs, provider IDs, secrets, feature flags, limits, and other runtime settings in feature code when the project has or needs a config flow.
 
 Document where configuration is loaded, validated, typed if applicable, and overridden by environment or deployment settings. Detailed operational setup belongs in \`../operations/README.md\` or a routed operations doc.
+
+## Reuse And Composition
+
+Prefer existing project primitives over new one-off implementations. Look for reusable components, helpers, hooks, adapters, contracts, config helpers, test helpers, and established composition patterns before creating a new abstraction.
+
+Keep feature-local code local until reuse is real. Promote reusable code only when repeated use, stable responsibility, or a documented composition pattern justifies it. Do not create parallel components or helpers for concepts that already have a project home.
 
 ## Current Structure
 

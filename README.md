@@ -189,6 +189,8 @@ Architecture docs should explain how the current project is organized, where
 authoritative code contracts live, which modules own configuration and adapter
 boundaries, what dependency direction is allowed, and which coding patterns are
 durable. They should not copy type, schema, or interface definitions from code.
+They should also explain where reusable components, hooks, helpers, adapters,
+test helpers, and shared project primitives live when the project has them.
 
 Agents must not hardcode favorite folders, architecture styles, config flows,
 or coding conventions. If the project has a documented rule, follow it. If the
@@ -199,6 +201,10 @@ New folders, docs, or route shards are justified by evidence: repeated
 responsibility, unclear ownership, files that outgrow one purpose, boundary
 changes, hardcoded runtime settings, shared contracts, or conventions important
 enough to validate.
+
+Reuse follows the same rule. Prefer existing project primitives over new
+one-off implementations. Keep feature-local code local until repeated use,
+stable responsibility, or a documented composition pattern justifies promotion.
 
 ## Why This Exists
 
@@ -246,6 +252,7 @@ instead of asking them to search blindly.
 - Every concept should have one canonical home.
 - Agents should read the smallest useful context, not the whole docs folder.
 - Agents should follow documented project style, not generic agent taste.
+- Agents should reuse documented project primitives before creating parallel implementations.
 - Meaningful code changes should update docs in the same task.
 - Missing docs are part of the work, not a later cleanup.
 - Uncertainty should be recorded, not hidden.

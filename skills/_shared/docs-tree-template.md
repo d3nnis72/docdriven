@@ -64,6 +64,7 @@ Before treating the scaffold as complete:
 
 Architecture docs are adaptive. The default `knowledge/architecture/README.md`
 should explain the actual project structure, structural ownership, dependency
-direction, configuration flow, and durable coding patterns. It must not force a
-generic folder layout. It should tell agents where authoritative code contracts
-live and when a new folder, doc, or route is justified.
+direction, configuration flow, reuse/composition rules, and durable coding
+patterns. It must not force a generic folder layout. It should tell agents where
+authoritative code contracts and reusable project primitives live and when a new
+folder, doc, or route is justified.
