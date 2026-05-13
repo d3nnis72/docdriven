@@ -375,6 +375,7 @@ Creates the initial documentation structure.
 
 Responsibilities:
 
+- classify project type, size, maturity, direction, and documentation risk
 - create `Docs/human/`
 - create `Docs/agent/`
 - create `Docs/knowledge/`
@@ -382,6 +383,7 @@ Responsibilities:
 - write initial context maps and update protocols
 - document current project architecture, features, interfaces, and operations
 - keep documentation concise and linked
+- create or recommend a local DocDriven audit entrypoint when possible
 
 `docdriven-build` should use the generated repo-local skill as its project
 contract.
@@ -400,11 +402,18 @@ Responsibilities:
 - find weak context routes
 - find tmp content that should be promoted or deleted
 - verify docs still match code structure and commands
+- flag missing local audit commands as reproducibility issues
 
 Audit can report findings or update docs when explicitly asked.
 
 Drift detection should be repeatable. It should not rely only on subjective
 review.
+
+The preferred audit setup is a repo-local `scripts/audit-docdriven.mjs` wrapper
+that calls the installed DocDriven audit implementation. Node projects should
+also expose a package script such as `docs:audit` when that fits the project's
+command style. The wrapper keeps audit discoverable in the project while the
+actual audit logic stays centralized and updateable.
 
 Audit should compare:
 
@@ -425,6 +434,13 @@ Useful audit markers:
 
 These markers should be lightweight. They exist to help agents trust and update
 docs in large repositories without reading everything.
+
+DocDriven must stay flexible. Every skill should reason from the current
+project instead of imposing a generic tree: what kind of system this is, how big
+it is, how fast it is changing, where it appears to be going, and what evidence
+future agents need. The larger the project or the bigger the LLM-driven change,
+the stricter the expectation that affected docs are updated before the work is
+called complete.
 
 ## Repository-Local Skill
 

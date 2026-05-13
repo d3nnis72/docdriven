@@ -30,6 +30,12 @@ architecture to every task. It should learn the project's documented structure,
 style, config flow, and validation rules, then make the next change fit that
 system.
 
+The skill must stay adaptive. Before creating or judging docs, the agent should
+ask what kind of project it is in, how large and mature it is, where the project
+appears to be going, and what future agents will need to avoid bad changes.
+Small projects need compact docs. Very large projects need stronger routing,
+clearer ownership, reproducible checks, and explicit update discipline.
+
 ## Quickstart
 
 Install all skills:
@@ -82,6 +88,11 @@ it.
 routes, missing docs, weak validation, unresolved placeholders, orphan knowledge
 docs, weak architecture contracts, undocumented structure signals, missing
 configuration-pattern documentation, and route/code drift.
+
+Audit should be reproducible inside the target project. The preferred shape is
+a local `scripts/audit-docdriven.mjs` entrypoint, backed by the installed
+DocDriven audit implementation, plus a documented command such as
+`docs:audit` when the project has package scripts.
 
 There is more to it, but that is the core: DocDriven gives agents a shared,
 continuously maintained context layer. The agent does not need to remember the
@@ -254,6 +265,8 @@ instead of asking them to search blindly.
 - Agents should follow documented project style, not generic agent taste.
 - Agents should reuse documented project primitives before creating parallel implementations.
 - Meaningful code changes should update docs in the same task.
+- Large LLM-driven tasks, refactors, migrations, and architecture changes are
+  not complete until the affected DocDriven docs are current.
 - Missing docs are part of the work, not a later cleanup.
 - Uncertainty should be recorded, not hidden.
 - Audits should detect drift, not just lint Markdown.
@@ -268,3 +281,5 @@ Run `docdriven-audit` before major merges, after large refactors, after changing
 package scripts or validation commands, and whenever agents start getting lost.
 
 The more the project changes, the more important the route graph becomes.
+The larger the project becomes, the more important local audit commands,
+route ownership, and post-change documentation updates become.

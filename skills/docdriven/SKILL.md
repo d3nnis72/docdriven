@@ -33,6 +33,9 @@ DocDriven is Documentation Driven Development for agents and humans.
 - Link instead of copying.
 - Follow the project's documented architecture and coding style; do not hardcode generic agent preferences.
 - Prefer long-term project consistency over local convenience.
+- Think before applying the scaffold: identify the project type, size, maturity,
+  expected direction, and risk profile, then adapt the docs model to that
+  reality.
 
 ## Dynamic Structure
 
@@ -44,6 +47,9 @@ knowledge docs, and route shards from repository evidence and reader needs.
 - Split route shards only when it reduces context load or clarifies ownership.
 - Do not create docs for absent concepts just because a template names them.
 - Record uncertain documentation needs in `Docs/agent/gaps.md` instead of inventing structure.
+- Large projects need stronger routing, clearer ownership, narrower shards, and
+  better validation evidence than small projects. Scale the documentation system
+  to the project instead of treating every repository the same.
 
 ## Project Continuity
 
@@ -77,6 +83,10 @@ consumers should access them, and when changes require docs or route updates.
 Update docs for behavior, public interface, config, environment, deployment,
 dependency, package-script, schema, migration, architecture, ownership, and
 validation changes.
+
+After any large LLM task, multi-step implementation, refactor, migration, or
+architectural change, update the relevant DocDriven docs before claiming the
+work complete. Big changes that leave the docs stale are unfinished changes.
 
 ## Stale Or Missing Docs
 

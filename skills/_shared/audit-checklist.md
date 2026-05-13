@@ -15,6 +15,8 @@ Check:
 - generated placeholder text is not left as completed docs
 - `tmp/` content is not treated as truth
 - validation commands match executable project files
+- a repo-local audit entrypoint exists when possible, usually
+  `scripts/audit-docdriven.mjs`
 - owned-code markers point to existing paths when present
 - missing routes are listed in `Docs/agent/gaps.md`
 - knowledge docs are referenced by at least one route or are folder routers
